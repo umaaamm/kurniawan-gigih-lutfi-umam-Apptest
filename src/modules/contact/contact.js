@@ -335,6 +335,7 @@ const Contact = () => {
                             placeholder='Enter your Age'
                             onChangeText={(value) => setAgeFun(value)}
                             value={age}
+                            keyboardType="numeric"
                             onSubmitEditing={() => { handleSnapPress(1) }}
                         />
                     </View>
