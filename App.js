@@ -6,37 +6,36 @@
  * @flow strict-local
  */
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
+  LogBox,
   StyleSheet,
-  Text,
-  useColorScheme,
-  View,
 } from 'react-native';
 
 import MainStackNavigator from './src/navigator/mainStackNavigator'
 import { NavigationContainer } from '@react-navigation/native';
 import Loading from './src/component/Loading/Loading';
+import SplashScreen from 'react-native-splash-screen';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
-const App = () =>{
+const App = () => {
+
+  useEffect(() => {
+    LogBox.ignoreAllLogs();
+    SplashScreen.hide();
+  }, []);
+
+
   return (
-    <SafeAreaView style={styles.mainStyle}>
+    <SafeAreaProvider>
       <NavigationContainer>
-      <Loading/>
-      <MainStackNavigator />
+        <Loading />
+        <MainStackNavigator />
       </NavigationContainer>
-    </SafeAreaView>
+    </SafeAreaProvider>
   );
 };
 
-const styles = StyleSheet.create({
-  mainStyle: {
-    backgroundColor:'white',
-    flex: 1
-  },
-});
+const styles = StyleSheet.create({});
 
 export default App;

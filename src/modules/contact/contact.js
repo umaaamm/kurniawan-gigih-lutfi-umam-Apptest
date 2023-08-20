@@ -14,8 +14,13 @@ import Toast from 'react-native-toast-message';
 import BottomSheet, { BottomSheetTextInput } from '@gorhom/bottom-sheet';
 import { launchImageLibrary } from 'react-native-image-picker';
 import { setFistNameReq, setLastNameReq, setAgeReq, setPhotoReq, setIdContact } from '../../store/action/contactAction'
+import {
+    SafeAreaProvider,
+    useSafeAreaInsets,
+  } from 'react-native-safe-area-context';
 
 const Contact = () => {
+    const insets = useSafeAreaInsets();
     const navigation = useNavigation();
     const dispatch = useDispatch()
     const { height } = Dimensions.get('screen');
@@ -29,7 +34,7 @@ const Contact = () => {
     const [firsName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [age, setAge] = useState('');
-    const snapPoints = useMemo(() => ['25%', '80%'], []);
+    const snapPoints = useMemo(() => ['25%', '75%'], []);
     const [isEdit, setIsEdit] = useState(false)
 
     const handleSnapPress = useCallback((index) => {
@@ -393,7 +398,7 @@ const Contact = () => {
     }
 
     return (
-        <View style={styles.container}>
+        <View style={styles.container(insets)}>
             <View style={styles.titleContainer}>
                 <TextComponent
                     text='Create'
@@ -499,7 +504,6 @@ const styles = StyleSheet.create({
         marginTop: 10
     },
     buttonSimpan: {
-
         alignItems: 'center',
         justifyContent: 'center',
         borderColor: colors.LIME50,
@@ -507,8 +511,6 @@ const styles = StyleSheet.create({
         height: 50,
         backgroundColor: colors.LIME50,
         borderRadius: 65,
-
-
     },
     buttonCancel: {
         marginTop: 10,
@@ -543,10 +545,12 @@ const styles = StyleSheet.create({
         borderTopRightRadius: 20,
         borderTopLeftRadius: 20,
     }),
-    container: {
+    container: (insets) => ({
         flex: 1,
+        paddingTop: insets.top,
+        paddingBottom: insets.bottom,
         backgroundColor: colors.white
-    },
+    }),
     containerBS: {
         flex: 1,
         padding: 24,
